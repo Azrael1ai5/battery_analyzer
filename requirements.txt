@@ -1,0 +1,9 @@
+streamlit
+numpy
+pandas
+plotly
+# kaleido # Only strictly needed if PDF generation with fig.write_image was used
+# If you removed PDF generation, kaleido is likely not needed anymore
+# If you kept PDF generation, uncomment the line above AND ensure it works in deployment env.
+
+# fpdf2 # Only needed if PDF generation is included
