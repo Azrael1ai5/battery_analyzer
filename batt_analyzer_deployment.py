@@ -230,7 +230,7 @@ st.set_page_config(page_title="Solar Battery Sim 1", layout="wide")
 st.markdown(
         """
         <div style="display: flex; justify-content: center;">
-            <img src="https://raw.githubusercontent.com/Azrael1ai5/seistrackpowerapp/main/LOGO.png" width="120">
+            <img src="https://raw.githubusercontent.com/Azrael1ai5/seistrackpowerapp/main/LOGO.png" width="150">
         </div>
         """, unsafe_allow_html=True
     )
