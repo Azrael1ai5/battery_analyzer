@@ -227,7 +227,7 @@ st.set_page_config(page_title="Solar Battery Sim 1", layout="wide")
 # --- Logo Display ---
 # Define logo path here so it can be checked
 # Center the image using HTML within st.markdown.
-    st.markdown(
+st.markdown(
         """
         <div style="display: flex; justify-content: center;">
             <img src="https://raw.githubusercontent.com/Azrael1ai5/seistrackpowerapp/main/LOGO.png" width="120">
