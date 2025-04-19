@@ -168,7 +168,7 @@ def create_line_graph_plotly(simulation_results, min_soc_percent):
 
     # Add SoC trace to primary y-axis
     fig.add_trace(go.Scatter(x=hour_labels, y=soc_over_time_percent, name='Battery SoC (%)',
-                   mode='lines', line=dict(color='green', width=2),
+                   mode='lines', line=dict(color='blue', width=2),
                    hovertemplate='SoC: %{y:.1f}%<extra></extra>'),
                   secondary_y=False)
 
@@ -178,16 +178,16 @@ def create_line_graph_plotly(simulation_results, min_soc_percent):
                    hovertemplate='Load: %{y:.0f} Wh<extra></extra>'),
                   secondary_y=True)
     fig.add_trace(go.Scatter(x=hour_labels, y=hourly_solar_generation_wh, name='Hourly Solar (Wh)',
-                   mode='lines', line=dict(color='orange'), opacity=0.8,
+                   mode='lines', line=dict(color='green'), opacity=0.8,
                    hovertemplate='Solar: %{y:.0f} Wh<extra></extra>'),
                   secondary_y=True)
     fig.add_trace(go.Scatter(x=hour_labels, y=hourly_grid_import_wh, name='Hourly Grid Import (Wh)',
-                   mode='lines', line=dict(color='blue'), opacity=0.7,
+                   mode='lines', line=dict(color='orange'), opacity=0.7,
                    hovertemplate='Grid Import: %{y:.0f} Wh<extra></extra>'),
                   secondary_y=True)
 
     # Add horizontal line for Min SoC
-    fig.add_hline(y=min_soc_percent, line_dash="dash", line_color="red",
+    fig.add_hline(y=min_soc_percent, line_dash="dash", line_color="lightblue",
                   annotation_text=f"Min SoC ({min_soc_percent:.0f}%)",
                   annotation_position="bottom right",
                   secondary_y=False)
@@ -226,9 +226,9 @@ def create_donut_chart_plotly(simulation_results):
     load_met_grid_approx_ac = (total_grid_import_wh * fraction_ac_total) * inverter_eff
     total_load_met_by_grid_approx = load_met_grid_approx_ac
     labels, values, colors, hover_text = [], [], [], []
-    if total_load_met_by_solar > 0.1: labels.append('Load Met by Solar'); values.append(total_load_met_by_solar); colors.append('red'); hover_text.append(f'{total_load_met_by_solar / 1000.0:.2f} kWh')
-    if total_load_met_by_battery > 0.1: labels.append('Load Met by Battery'); values.append(total_load_met_by_battery); colors.append('green'); hover_text.append(f'{total_load_met_by_battery / 1000.0:.2f} kWh')
-    if total_load_met_by_grid_approx > 0.1: labels.append('Load Met by Grid'); values.append(total_load_met_by_grid_approx); colors.append('blue'); hover_text.append(f'{total_load_met_by_grid_approx / 1000.0:.2f} kWh')
+    if total_load_met_by_solar > 0.1: labels.append('Load Met by Solar'); values.append(total_load_met_by_solar); colors.append('green'); hover_text.append(f'{total_load_met_by_solar / 1000.0:.2f} kWh')
+    if total_load_met_by_battery > 0.1: labels.append('Load Met by Battery'); values.append(total_load_met_by_battery); colors.append('blue'); hover_text.append(f'{total_load_met_by_battery / 1000.0:.2f} kWh')
+    if total_load_met_by_grid_approx > 0.1: labels.append('Load Met by Grid'); values.append(total_load_met_by_grid_approx); colors.append('orange'); hover_text.append(f'{total_load_met_by_grid_approx / 1000.0:.2f} kWh')
     if sum(values) > 0:
         trace = go.Pie(labels=labels, values=values, hole=.4, marker_colors=colors, textinfo='percent', hoverinfo='label+text', hovertext=hover_text, insidetextorientation='radial', sort=False)
         center_text = f"Total Load:<br>{total_original_load_wh / 1000.0:.2f} kWh"
