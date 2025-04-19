@@ -234,19 +234,6 @@ st.markdown(
         </div>
         """, unsafe_allow_html=True
     )
-
-try:
-    col1, col2, col3 = st.columns([1,1,1])
-    with col1: st.write("")
-    with col2:
-        if os.path.exists(logo_path): # Check if file exists before display
-            st.image(logo_path, width=logo_width)
-        else:
-            st.warning(f"Logo file not found at '{logo_path}'. Please check path.", icon="ℹ️")
-    with col3: st.write("")
-except Exception as e:
-    st.error(f"An error occurred trying to display the logo: {e}")
-
 st.title("☀️🔋🔌 SEISTRACK (Solar + Battery + Grid ) Simulator")
 st.markdown("Created By: Eric G. Bundalian")
 st.markdown("""
