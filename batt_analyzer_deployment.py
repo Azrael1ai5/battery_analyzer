@@ -199,7 +199,7 @@ def create_line_graph_plotly(simulation_results, min_soc_percent):
         # --- MODIFIED LEGEND POSITION ---
         legend=dict(
             yanchor="top",     # Anchor legend from its top edge
-            y=1.5,            # Position the top slightly above the plot area (adjust 1.02 as needed)
+            y=1.3,            # Position the top slightly above the plot area (adjust 1.02 as needed)
             xanchor="right",   # Anchor legend from its right edge
             x=1,               # Position the right edge at the right edge of the plot area
             bgcolor='rgba(255,255,255,0.6)', # Optional: background color
