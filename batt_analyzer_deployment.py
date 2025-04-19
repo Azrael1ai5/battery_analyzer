@@ -163,15 +163,28 @@ def create_line_graph_plotly(simulation_results, min_soc_percent):
     total_hourly_load_demand_wh = np.array(simulation_results["actual_load_ac_hourly_wh"])
     hourly_solar_generation_wh = np.array(simulation_results["hourly_solar_generation_wh"])
     hourly_grid_import_wh = np.array(simulation_results["grid_import_hourly_wh"])
+
     fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Add SoC trace to primary y-axis
     fig.add_trace(go.Scatter(x=hour_labels, y=soc_over_time_percent, name='Battery SoC (%)', mode='lines', line=dict(color='green', width=2), hovertemplate='SoC: %{y:.1f}%<extra></extra>'), secondary_y=False)
+
+    # Add other traces to secondary y-axis
     fig.add_trace(go.Scatter(x=hour_labels, y=total_hourly_load_demand_wh, name='Hourly Load (Wh)', mode='lines', line=dict(color='red', dash='dot'), opacity=0.8, hovertemplate='Load: %{y:.0f} Wh<extra></extra>'), secondary_y=True)
     fig.add_trace(go.Scatter(x=hour_labels, y=hourly_solar_generation_wh, name='Hourly Solar (Wh)', mode='lines', line=dict(color='orange'), opacity=0.8, hovertemplate='Solar: %{y:.0f} Wh<extra></extra>'), secondary_y=True)
     fig.add_trace(go.Scatter(x=hour_labels, y=hourly_grid_import_wh, name='Hourly Grid Import (Wh)', mode='lines', line=dict(color='blue'), opacity=0.7, hovertemplate='Grid Import: %{y:.0f} Wh<extra></extra>'), secondary_y=True)
+
+    # Add Min SoC line (references primary axis)
     fig.add_hline(y=min_soc_percent, line_dash="dash", line_color="red", annotation_text=f"Min SoC ({min_soc_percent:.0f}%)", annotation_position="bottom right", secondary_y=False)
+
+    # Update layout
     fig.update_layout(title_text='System Performance Over 24 Hours (Grid-Tied)', xaxis_title='Hour of Day', legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01, bgcolor='rgba(255,255,255,0.6)'), hovermode="x unified")
-    fig.update_yaxes(title_text="<b>State of Charge (%)</b>", secondary_y=False, range=[0, 105], tickformat=".0%")
+
+    # Set y-axes titles and formats
+    # *** MODIFIED THIS LINE ***
+    fig.update_yaxes(title_text="<b>State of Charge (%)</b>", secondary_y=False, range=[0, 100], tickformat=".0%") # Range set to 0-100
     fig.update_yaxes(title_text="<b>Energy (Wh)</b>", secondary_y=True, rangemode='tozero')
+
     return fig
 
 def create_donut_chart_plotly(simulation_results):
